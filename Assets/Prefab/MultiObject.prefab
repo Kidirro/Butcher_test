@@ -83,7 +83,7 @@ MonoBehaviour:
   - {fileID: 6025665166101746624}
   - {fileID: 6640623318141879978}
   - {fileID: 6311742431701792978}
-  _score: 0
+  _score: 20
 --- !u!65 &5940282646239762636
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -747,7 +747,7 @@ MonoBehaviour:
   - {fileID: 1098718590610554283}
   - {fileID: 6640623318141879978}
   - {fileID: 6311742431701792978}
-  _score: 0
+  _score: -20
 --- !u!65 &4586609907268708183
 BoxCollider:
   m_ObjectHideFlags: 0

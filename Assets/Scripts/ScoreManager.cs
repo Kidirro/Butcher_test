@@ -16,7 +16,7 @@ public class ScoreManager : BaseSingleton<ScoreManager>
 
     public void AddScore(float score)
     {
-        CurrentScore += score;
+        CurrentScore =Mathf.Max(0, CurrentScore+score);
         OnScoreChanged.Invoke(CurrentScore);
     }
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerObjectController : MonoBehaviour
+public class PlayerMoveController : MonoBehaviour
 {
     [SerializeField]
     private GameObject player;
@@ -24,7 +24,11 @@ public class PlayerObjectController : MonoBehaviour
     private float _rotationSpeed;
 
     private bool _rotationInProgress = false;
+    private bool _isStart = false;
     private bool _isFinish = false;
+    
+    public static event Action OnStartMove = delegate {  };
+    public static event Action OnEndMove = delegate {  };
     
   private void Start()
   {
@@ -37,11 +41,14 @@ public class PlayerObjectController : MonoBehaviour
 
   private void Update()
   {
-      if (_isFinish) return;;
+      if (!_isStart) return;
+      if (_isFinish) return;
+      
       if (_rotationInProgress) return;
       var currentPoint = PatchManager.Instance.GetCurrentPoint();
       if (currentPoint.NextPoint == null)
       {
+          OnEndMove.Invoke();
           _isFinish = true;
           return;
       }
@@ -52,7 +59,7 @@ public class PlayerObjectController : MonoBehaviour
       if ((trainObject.transform.position - currentPoint.NextPoint.transform.position).sqrMagnitude <= 0.1f)
       {
           PatchManager.Instance.UpdateNextPoint();
-          if (PatchManager.Instance.GetCurrentPoint() == null) return;
+          if (PatchManager.Instance.GetCurrentPoint() == null) {return;}
           UpdateTrainPosition();
       }
   }
@@ -79,6 +86,13 @@ public class PlayerObjectController : MonoBehaviour
       if (delta == 0) return;
       if (_isFinish) return;
 
+      //Небольшой костыль для тутора и аниматора
+      if (_isStart == false)
+      {
+          OnStartMove.Invoke();
+          _isStart = true;
+      }
+      
       float width = PatchManager.Instance.GetCurrentPoint().Width;
       var localPosition = player.transform.localPosition;
       float position = Mathf.Clamp(localPosition.x + delta * Time.deltaTime * _horizontalSpeed, -width,width);

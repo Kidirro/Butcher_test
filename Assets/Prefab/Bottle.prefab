@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioClip: {fileID: 8300000, guid: 686994716dd286b48bed113bc1c33633, type: 3}
-  _score: 0
+  _score: -20
 --- !u!1001 &4939670366457653318
 PrefabInstance:
   m_ObjectHideFlags: 0
