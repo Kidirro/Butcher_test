@@ -11,18 +11,18 @@ public class ScoreText : MonoBehaviour
 
     private void Start()
     {
-        ScoreManager.OnScoreChanged -= OnScoreChanged; 
-        ScoreManager.OnScoreChanged += OnScoreChanged; 
+        ScoreManager.OnScoreChangedNewValue -= OnScoreChangedNewValue; 
+        ScoreManager.OnScoreChangedNewValue += OnScoreChangedNewValue; 
         
         text.text = ScoreManager.Instance.CurrentScore.ToString();
     }
 
     private void OnDestroy()
     {
-        ScoreManager.OnScoreChanged -= OnScoreChanged;
+        ScoreManager.OnScoreChangedNewValue -= OnScoreChangedNewValue;
     }
 
-    private void OnScoreChanged(float score)
+    private void OnScoreChangedNewValue(float score)
     {
         text.text = score.ToString();
     }

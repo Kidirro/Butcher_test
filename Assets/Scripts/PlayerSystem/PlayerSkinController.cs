@@ -13,19 +13,19 @@ public class PlayerSkinController : MonoBehaviour
 
     private void Start()
     {
-        ScoreManager.OnScoreChanged -= OnScoreChanged; 
-        ScoreManager.OnScoreChanged += OnScoreChanged;
+        ScoreManager.OnScoreChangedNewValue -= OnScoreChangedNewValue; 
+        ScoreManager.OnScoreChangedNewValue += OnScoreChangedNewValue;
         _currentData = _skinDatas[0];
         
-        OnScoreChanged(ScoreManager.Instance.CurrentScore);
+        OnScoreChangedNewValue(ScoreManager.Instance.CurrentScore);
     }
 
     private void OnDestroy()
     {
-        ScoreManager.OnScoreChanged -= OnScoreChanged;
+        ScoreManager.OnScoreChangedNewValue -= OnScoreChangedNewValue;
     }
 
-    private void OnScoreChanged(float score)
+    private void OnScoreChangedNewValue(float score)
     {
         if (score < _nextData.ScoreGoal && score >= _currentData.ScoreGoal)
         {
