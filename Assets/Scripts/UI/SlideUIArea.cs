@@ -9,6 +9,7 @@ public class SlideUIArea : MonoBehaviour
     [SerializeField]
     private SlideType currentType;
 
+    private static event Action<SlideType> OnSlideChanged = delegate(SlideType type) {  }; 
 
     private void Start()
     {
@@ -18,7 +19,9 @@ public class SlideUIArea : MonoBehaviour
         PlayerMoveController.OnStartMove += OnStartMove;
         PlayerMoveController.OnEndMove += OnEndMove;
         
-        gameObject.SetActive(currentType!=SlideType.Finish);
+        OnSlideChanged += ChangeSlide;
+        
+        gameObject.SetActive(currentType == SlideType.Tutorial);
     }
 
     private void OnDestroy()
@@ -37,11 +40,21 @@ public class SlideUIArea : MonoBehaviour
         gameObject.SetActive(currentType==SlideType.Gameplay);
     }
 
+    private void ChangeSlide(SlideType type)
+    {
+        gameObject.SetActive(type == currentType);
+    }
+    
+    public static void ChangeSlid(SlideType type)
+    {
+        OnSlideChanged.Invoke(type);
+    }
 
-    private enum SlideType
+    public enum SlideType
     {
         Tutorial,
         Gameplay,
-        Finish
+        Finish,
+        LevelProgress
     }
 }

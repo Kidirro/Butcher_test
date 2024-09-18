@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,5 +15,12 @@ public class BaseSingleton<T>: MonoBehaviour where T : BaseSingleton<T>
         }
         Instance = (T) this;
     }
-    
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
+        }
+    }
 }

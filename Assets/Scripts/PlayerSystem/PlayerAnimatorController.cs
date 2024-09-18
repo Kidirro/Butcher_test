@@ -20,6 +20,12 @@ public class PlayerAnimatorController : MonoBehaviour
       PlayerMoveController.OnEndMove += OnEndMove;
    }
 
+   private void OnDestroy()
+   {
+      PlayerMoveController.OnStartMove -= OnStartMove;
+      PlayerMoveController.OnEndMove -= OnEndMove;
+   }
+
    private void OnStartMove()
    {
       _animator.SetTrigger(onStartHash);
